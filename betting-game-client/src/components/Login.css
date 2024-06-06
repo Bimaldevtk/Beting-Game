@@ -1,0 +1,33 @@
+.container-login{
+    display: flex;
+    flex-direction: row;
+    height: 40rem;
+    margin-left: 10px;
+    padding: 50px;
+    
+
+}
+.login{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+
+
+}
+.cred{
+    margin-left: 97px;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+
+
+}
+.No-account{
+    font-size: 16px;
+    font-weight: bold;
+}
