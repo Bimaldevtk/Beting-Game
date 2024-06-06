@@ -1,51 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css'
-import { Link } from 'react-router-dom';
-import { doSignInWithEmailAndPassword,doSignInWithGoogle } from '../firebase/auth';
-import { useAuth } from '../contexts/authContext';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { Link,useNavigate } from 'react-router-dom';
+
+import { auth, provider } from '../firebase/firebase'; // Importing auth and provider from the firebase configuration file
+import {  signInWithPopup,signInWithEmailAndPassword,getAuth} from 'firebase/auth';
+
+
+
 
 const Login = () => {
-  const {userLoggedIn} =useAuth()
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
-  const [isSiginingIn, setisSiginingIn] = useState('');
-  const [errorMessage, seterrorMessage] = useState('');
-  // const handleSignUp =async (event)={
-  //   event.preventDefault();
-  //   try{
-  //     const userCredential = await createUserWithEmailAndPassword(auth,email,password);
-  //     const user =userCredential.user;
-  //     console.log('User Signed up:', user);
-
-  //   } catch(error){
-  //     console.error('Error signing up:',error);
-  //     seterrorMessage(error.message);
-  //   }
   
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  
+
+    const handleEmailChange = (e) => {
+      setEmail(e.target.value);
+    };
+  
+    const handlePasswordChange = (e) => {
+      setPassword(e.target.value);
+    };
+    const handleSignIn = async () => {
+      const auth = getAuth();
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        navigate("/home")
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    const handleGoogleSignIn = async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        navigate('/home');
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    
+
   return (
     <div className='container-login'>
       <div className='login'>
         <h2>Welcome Back !</h2>
-        {/* <p className='cred'>Enter Your Credentials to access your account</p> */}
-        <form>
+   
+       
           <div className='form-parent'>
           <div className='form-group'>
             <label>Email address</label>
-            <input type='email' placeholder='Enter your mail'/>
+            <input type='email' value={email} onChange={handleEmailChange} placeholder='Enter your email' />
           </div>
           <div className='form-group'>
             <label>Password</label>
-            <input type='password' placeholder='Enter your password'/>
+            <input type='password' value={password} onChange={handlePasswordChange} placeholder='Password' />
           </div>
           <div className='form-group'>
-          <button type='submit' className='signup-btn'>Log in</button>
+          <button type='submit' className='signup-btn' onClick={handleSignIn}>Log in</button>
+          <button className='google-btn' type='button' onClick={handleGoogleSignIn}>Log in with Google</button>
+          {error && <label className='error-message'>{error}</label>}
           <p className='No-account'>Don't have an account? <Link to='/Signup'>Sign Up</Link></p>
           </div>
           </div>
 
 
-        </form>
+      
 
       </div>
       <div className='picture'>
@@ -57,5 +80,7 @@ const Login = () => {
     </div>
   )
 }
+
+
 
 export default Login

@@ -84,7 +84,7 @@ function Bet() {
                   {result.win ? 'You Win!' : 'You Lose!'}
                 </Typography>
                 <Typography variant="h6">New Points: {result.userPoints}</Typography>
-                <Button variant="contained" color="secondary" sx={{ mt: 2 }} onClick={() => navigate('/')}>
+                <Button variant="contained" color="secondary" sx={{ mt: 2 }} onClick={() => navigate('/home')}>
                   Go Home
                 </Button>
               </Box>

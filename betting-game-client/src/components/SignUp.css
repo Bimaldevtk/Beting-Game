@@ -66,10 +66,14 @@ input::placeholder{
 }
 .already-account{
     font-size: 16px;
-    font-weight:bolder;
+    font-weight:bold;
 
 }
 .link-color{
     color: #0F3DDE;
+}
+.google-btn{
+    font-size: 14px;
+    font-weight: bold;
 }
 
