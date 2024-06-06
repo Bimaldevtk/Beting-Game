@@ -36,7 +36,7 @@ function Bet() {
           <Box>
             <Typography variant="h4" color="error">Game Over</Typography>
             <Typography variant="h6">You have lost all your points.</Typography>
-            <Button variant="contained" color="secondary" sx={{ mt: 2 }} onClick={() => navigate('/')}>
+            <Button variant="contained" color="secondary" sx={{ mt: 2 }} onClick={() => navigate('/home')}>
               Go Home
             </Button>
           </Box>
